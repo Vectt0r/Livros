@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Form bootstrap 5 -no border</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <style media="screen">
+        .form-control,
+        .form-select {
+            border: 0;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .bg-form {
+
+            background-color: #383434;
+        }
+
+        .bg-button-submit {
+            background-color: #282828;
+        }
+    </style>
+</head>
+
+<body>
+<!-- created by @BrCodeSnippets -->
+<div class="container mt-3 pt-3">
+    <div class="row">
+        <div class="col-12">
+            <div class="card p-3 bg-form">
+                <form class="row g-3">
+                    <div class="col-12">
+                        <h1 class="text-center fw-bolder text-white mt-3">Form bootstrap 5 - Floating labels</h1>
+                        <hr>
+                    </div>
+                    <div class="col-12">
+                        <div class="p-3 mb-3 text-white fw-bolder fs-3 border-5 border-start">
+                            Cadastre-se
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" autocomplete="off" class="form-control bg-light " id="inputName" placeholder="Name">
+                            <label for="inputName">Name</label>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-floating">
+                            <input type="email" class="form-control bg-light " id="inputEmail4" placeholder="Informe seu e-mail">
+                            <label for="inputEmail4">Email address</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="password" class="form-control bg-light border-0 " id="inputPassword4" placeholder="Informe uma senha segura">
+                            <label for="inputPassword4" class="form-label">Password</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control bg-light " id="inputAddress" placeholder="1234 Main St">
+                            <label for="inputAddress" class="form-label">Address</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control bg-light " id="inputCity" placeholder="Cidade">
+                            <label for="inputCity" class="form-label">City</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <select id="inputState" class="form-select bg-light">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+                            <label for="inputState" class="form-label">State</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-floating">
+                            <input type="text" class="form-control bg-light" id="inputZip" placeholder="Cep">
+                            <label for="inputZip" class="form-label">CEP</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height:100px"></textarea>
+                            <label for="floatingTextarea">Comments</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck">
+                            <label class="form-check-label shadow-sm text-white" for="gridCheck">
+                                Concordo com os termos.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn bg-button-submit w-100 bg-gradient p-3 text-center mb-2 text-white fw-bolder fs-3">Salvar</button>
+                        <a href="#" class="text-primary shadow-sm">Precisa de ajuda? Clique aqui</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+
+</html>
