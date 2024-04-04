@@ -1,0 +1,92 @@
+Introdução e Regras de Negócio
+Nossa solução, chamada "4Health Connect", é uma plataforma de Telemedicina que utiliza IA, RA e RV para oferecer uma experiência imersiva e personalizada em teleconsultas. As regras de negócio incluem:
+
+Privacidade e segurança dos dados do paciente conforme regulamentações de saúde (ex: HIPAA nos EUA, LGPD no Brasil).
+Acessibilidade em diferentes dispositivos (smartphones, tablets, PCs).
+Integração com sistemas de saúde existentes para acessar prontuários eletrônicos.
+Permite a realização de consultas interativas usando RA/RV para simulações e diagnósticos.
+Uso de IA para pré-análise de sintomas e suporte na definição de diagnósticos e tratamentos.
+Os principais perfis de usuários são médicos, que buscam uma ferramenta eficiente para realizar diagnósticos e acompanhar pacientes à distância, e pacientes, que procuram acesso conveniente e interativo ao atendimento médico.
+
+Histórias de Usuário
+Como médico, quero realizar consultas em RA/RV para oferecer diagnósticos mais precisos, simulando condições e tratamentos em um ambiente virtual.
+Como paciente, quero agendar e gerenciar minhas consultas online para facilitar o acesso a cuidados médicos sem sair de casa.
+Como médico, quero acessar o histórico médico do paciente de forma integrada durante a teleconsulta para tomar decisões informadas.
+Como paciente, quero receber recomendações personalizadas de saúde baseadas em IA após cada consulta, para melhorar meu bem-estar.
+Como médico, desejo utilizar ferramentas de IA para ajudar no diagnóstico e no planejamento do tratamento, otimizando o tempo de consulta.
+
+Requisitos Funcionais
+RF1: Agendamento e gerenciamento de consultas online.
+RF2: Ambiente de teleconsulta imersivo utilizando RA/RV.
+RF3: Acesso integrado ao prontuário eletrônico do paciente durante a consulta.
+RF4: Ferramentas de IA para análise prévia de sintomas e assistência no diagnóstico.
+Requisitos Não Funcionais
+RNF1: Conformidade com padrões de segurança de dados e privacidade do paciente.
+RNF2: Interface intuitiva e acessível em múltiplas plataformas (responsividade).
+Diagrama de Casos de Uso e Especificação Textual
+Diagrama de Casos de Uso:
+
+
+=============================================================================================================================================================================
+
+
+Diagrama de Casos de Uso
+Ator: Médico
+
+Casos de Uso:
+	Realizar Teleconsulta
+	Acessar Histórico Médico
+	Usar Ferramentas de Diagnóstico em RA/RV
+	Consultar Recomendações de IA
+	Relacionamento:
+
+A realização de uma Teleconsulta envolve o Acesso ao Histórico Médico e o Uso de Ferramentas de Diagnóstico em RA/RV.
+Aqui, o relacionamento indica que quando um médico realiza uma teleconsulta, ele também irá acessar o histórico médico do paciente e poderá utilizar ferramentas de diagnóstico em RA/RV. Isso mostra a dependência entre as ações.
+
+
+Para criar um diagrama de casos de uso a partir das informações fornecidas, você seguiria estes passos, utilizando uma ferramenta de modelagem como DrawIO, Lucidchart ou Creately:
+
+Identifique os Atores: Comece desenhando um "boneco de palito" ou um retângulo rotulado "Médico" para representar o ator.
+
+Defina os Casos de Uso: Para cada caso de uso listado ("Realizar Teleconsulta", "Acessar Histórico Médico", "Usar Ferramentas de Diagnóstico em RA/RV", "Consultar Recomendações de IA"), desenhe um oval e escreva o título do caso de uso dentro ou ao lado dele.
+
+Desenhe o Sistema: Coloque todos os casos de uso dentro de um grande retângulo que representa o sistema "4Health Connect".
+
+Conecte os Atores aos Casos de Uso: Desenhe linhas (associações) do ator Médico para cada caso de uso. Isso indica que o médico participa dessas ações.
+
+Mostre Relacionamentos e Dependências:
+
+Para representar que "Realizar Teleconsulta" envolve "Acessar Histórico Médico", você pode desenhar uma linha pontilhada com uma seta da teleconsulta para acessar o histórico médico. Isso indica uma "include" relationship, significando que acessar o histórico é uma parte inerente de realizar a teleconsulta.
+Faça o mesmo para conectar "Realizar Teleconsulta" a "Usar Ferramentas de Diagnóstico em RA/RV".
+Adicione Relacionamentos "Include" e "Extend" (se necessário): Se houver casos de uso opcionais ou extensões, você pode adicionar relacionamentos "extend". Por exemplo, se "Consultar Recomendações de IA" for opcional após uma teleconsulta, desenhe uma linha pontilhada com uma seta da teleconsulta para este caso de uso com a etiqueta "extend".
+
+Revisão: Revise o diagrama para garantir que ele reflita com precisão os relacionamentos e ações descritas nas histórias de usuário e requisitos do sistema.
+
+Anote Relacionamentos (opcional): Se necessário, adicione notas ou legendas para explicar os relacionamentos mais complexos ou significativos.
+
+Lembre-se, um diagrama de casos de uso não precisa incluir todos os detalhes do sistema, mas deve fornecer uma visão clara de como os atores interagem com os principais componentes do sistema.
+
+
+
+===============================================================================================================================================================================
+
+
+Especificação Textual do Caso de Uso: Realizar Teleconsulta
+Ator Principal: Médico
+
+Precondições:
+
+Médico e paciente estão registrados na plataforma.
+Uma consulta está agendada.
+Fluxo Principal:
+
+O médico inicia a teleconsulta no horário agendado.
+O sistema notifica o paciente sobre o início da consulta.
+O médico acessa o histórico médico do paciente.
+O médico e o paciente comunicam-se utilizando vídeo, áudio e ferramentas de RA/RV.
+O médico fornece um diagnóstico e recomendações.
+A consulta é encerrada, e um resumo é enviado ao paciente.
+Pós-condições:
+
+O diagnóstico e as recomendações ficam registrados no sistema para acesso futuro.
+Esta especificação textual descreve detalhadamente as etapas que ocorrem durante o caso de uso "Realizar Teleconsulta". Inclui o que acontece antes da consulta (precondições), as etapas específicas da consulta (fluxo principal) e o que acontece após a consulta (pós-condições).interações entre os atores e o sistema proposto.
