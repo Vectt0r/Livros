@@ -1,0 +1,179 @@
+Veículos (Placa, Nome, Modelo, Ano, Fabricante, NúmeroPassageiros, CapacidadePortaMalas, ValorDia, ValorSemana, ValorMês)
+Clientes (CPF, Nome, CategoriaCNH, DataNascimento, Endereço)
+Locações (IDLocação, CPFCliente, PlacaVeículo, DataInicial, DataFinal, ValorPago)
+Manutenções (IDManutenção, PlacaVeículo, DataInicial, DataFinal, Custo, Descrição)
+Com essas tabelas em mente, vamos às expressões de álgebra relacional para atender aos requisitos solicitados:
+
+1. Obter todos os veículos que nunca foram locados para nenhum cliente
+Para encontrar veículos que nunca foram locados, podemos buscar veículos que não possuem correspondência na tabela de locações. Isso pode ser feito usando a operação de diferença (−) em álgebra relacional:
+
+VeículosNuncaLocados = Veículos − (ProjeçãoPlaca)
+
+Isso significa que pegamos todas as entradas na tabela Veículos e subtraímos as entradas que têm uma correspondência na tabela Locações baseada na coluna 'Placa'.
+
+2. Encontrar os clientes que alugaram um veículo específico, identificado pela placa
+Para encontrar os clientes que alugaram um veículo específico, usamos a operação de seleção (σ) para filtrar a locação pelo veículo específico, seguida de uma junção (⨝) com a tabela de clientes baseada no CPF:
+
+ClientesQueAlugaramVeículoEspecífico = (σPlacaVeículo='PlacaEspecífica'(Locações)) ⨝ CPF=CPFCliente Clientes
+
+Substitua 'PlacaEspecífica' pela placa real do veículo que você está investigando.
+
+3. Obter os clientes que alugaram veículos, juntamente com as informações sobre o veículo alugado, como a placa, modelo e fabricante
+Para obter essa lista, precisaremos realizar uma junção entre as tabelas de Locações, Veículos e Clientes, projetando as colunas desejadas:
+
+ClientesEVeículosAlugados = Projeção[CPF, Nome, Placa, Modelo, Fabricante](Locações ⨝ CPFCliente=CPF Clientes ⨝ PlacaVeículo=Placa Veículos)
+
+Essas expressões fornecem um ponto de partida para construir as consultas necessárias para extrair as informações desejadas do banco de dados, considerando a estrutura proposta e os requisitos do sistema.
+
+
+
+
+Diagrama Entidade-Relacionamento (DER)
+Entidades e Atributos:
+Veículo
+
+Atributos: Placa (PK), Nome, Modelo, Ano, Fabricante, NúmeroPassageiros, CapacidadePortaMalas, ValorDia, ValorSemana, ValorMês.
+Cliente
+
+Atributos: CPF (PK), Nome, CategoriaCNH, DataNascimento, Endereço.
+Locação
+
+Atributos: IDLocação (PK), DataInicial, DataFinal, ValorPago, CPFCliente (FK), PlacaVeículo (FK).
+Manutenção
+
+Atributos: IDManutenção (PK), DataInicial, DataFinal, Custo, Descrição, PlacaVeículo (FK).
+Relacionamentos:
+Veículo -> Locação: Um veículo pode ser locado várias vezes (1:N).
+Cliente -> Locação: Um cliente pode realizar várias locações (1:N).
+Veículo -> Manutenção: Um veículo pode passar por várias manutenções (1:N).
+Modelo Relacional (até a 3FN)
+Veículo(Placa, Nome, Modelo, Ano, Fabricante, NúmeroPassageiros, CapacidadePortaMalas, ValorDia, ValorSemana, ValorMês)
+
+Cliente(CPF, Nome, CategoriaCNH, DataNascimento, Endereço)
+
+Locação(IDLocação, DataInicial, DataFinal, ValorPago, CPFCliente, PlacaVeículo)
+
+Chaves estrangeiras: CPFCliente referencia Cliente(CPF), PlacaVeículo referencia Veículo(Placa).
+Manutenção(IDManutenção, DataInicial, DataFinal, Custo, Descrição, PlacaVeículo)
+
+Chave estrangeira: PlacaVeículo referencia Veículo(Placa).
+Para garantir que o modelo esteja na Terceira Forma Normal (3FN), seguimos estes princípios:
+
+Todos os requisitos para a Primeira (1FN) e Segunda Forma Normal (2FN) são atendidos (sem grupos repetitivos, e todos os atributos não-chave são totalmente funcionais e dependentes das chaves primárias).
+Não há dependências transitivas; ou seja, todos os atributos não-chave dependem diretamente das chaves primárias, e não de outros atributos não-chave.
+
+
+
+
+Cliente
++---------------------+
+| CPF (PK)            |
+| Nome                |
+| CategoriaCNH        |
+| DataNascimento      |
+| Endereço            |
++---------------------+
+           |
+           | 1
+           |
+           N
++---------------------+     +---------------------+
+|     Locação         |     |    Manutenção       |
++---------------------+     +---------------------+
+| IDLocação (PK)      |     | IDManutenção (PK)   |
+| DataInicial         |     | DataInicial         |
+| DataFinal           |     | DataFinal           |
+| ValorPago           |     | Custo               |
+| CPFCliente (FK)-----+     | Descrição           |
+| PlacaVeículo (FK)---+-----| PlacaVeículo (FK)   |
++---------------------+     +---------------------+
+                                |
+                                | 1
+                                |
+                                N
+                          +---------------------+
+                          |      Veículo        |
+                          +---------------------+
+                          | Placa (PK)          |
+                          | Nome                |
+                          | Modelo              |
+                          | Ano                 |
+                          | Fabricante          |
+                          | NúmeroPassageiros   |
+                          | CapacidadePortaMalas|
+                          | ValorDia            |
+                          | ValorSemana         |
+                          | ValorMês            |
+                          +---------------------+
+
+
+
+
+
+1. Abrir Draw.io
+Inicie o Draw.io e selecione um novo diagrama em branco.
+
+2. Desenhar Entidades
+Use a ferramenta de retângulo para desenhar quatro entidades: Cliente, Veículo, Locação e Manutenção.
+
+3. Adicionar Atributos
+Para cada entidade, adicione os seguintes atributos. Você pode usar caixas de texto para isso:
+
+Cliente
+
+CPF (PK)
+Nome
+CategoriaCNH
+DataNascimento
+Endereço
+Veículo
+
+Placa (PK)
+Nome
+Modelo
+Ano
+Fabricante
+NúmeroPassageiros
+CapacidadePortaMalas
+ValorDia
+ValorSemana
+ValorMês
+Locação
+
+IDLocação (PK)
+DataInicial
+DataFinal
+ValorPago
+CPFCliente (FK)
+PlacaVeículo (FK)
+Manutenção
+
+IDManutenção (PK)
+DataInicial
+DataFinal
+Custo
+Descrição
+PlacaVeículo (FK)
+4. Desenhar Relacionamentos
+Use a ferramenta de linha para conectar as entidades:
+
+Conecte Cliente a Locação para indicar que um cliente pode ter múltiplas locações.
+Conecte Veículo a Locação para mostrar que um veículo pode ser locado várias vezes.
+Conecte Veículo a Manutenção para representar que um veículo pode passar por várias manutenções.
+
+
+
+
+
+
+
+
+A cardinalidade no Diagrama Entidade-Relacionamento (DER) para o projeto da empresa de locação de veículos pode ser determinada da seguinte forma, com base nas relações entre as entidades:
+
+Cliente e Locação: Um cliente pode realizar várias locações, mas cada locação é feita por um único cliente. Portanto, a cardinalidade entre Cliente e Locação é 1:N (um para muitos), onde um Cliente pode ter N Locações, mas cada Locação está associada a um único Cliente.
+
+Veículo e Locação: Um veículo pode ser locado várias vezes, mas cada locação se refere a um único veículo. A cardinalidade entre Veículo e Locação também é 1:N (um para muitos), onde um Veículo pode estar em N Locações, mas cada Locação refere-se a um único Veículo.
+
+Veículo e Manutenção: Um veículo pode passar por várias manutenções ao longo do tempo, mas cada registro de manutenção se refere a um único veículo. A cardinalidade entre Veículo e Manutenção é 1:N (um para muitos), indicando que um Veículo pode ter N registros de Manutenção, mas cada Manutenção está associada a um único Veículo.
+
+Portanto, todas as relações neste projeto têm uma cardinalidade de 1 para N (1:N), refletindo a natureza dessas relações na realidade operacional da empresa de locação de veículos.
