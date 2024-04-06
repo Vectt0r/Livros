@@ -1,0 +1,83 @@
+-- Criação do Banco de Dados
+CREATE DATABASE IF NOT EXISTS LocadoraVeiculos;
+USE LocadoraVeiculos;
+
+-- Criação da tabela Veiculo
+CREATE TABLE IF NOT EXISTS Veiculo (
+    Placa VARCHAR(8) PRIMARY KEY,
+    Nome VARCHAR(100),
+    Modelo VARCHAR(100),
+    Ano INT,
+    Fabricante VARCHAR(100),
+    NumPassageiros INT,
+    CapPortaMalas INT,
+    ValorDia DECIMAL(10, 2),
+    ValorSemana DECIMAL(10, 2),
+    ValorMes DECIMAL(10, 2)
+);
+
+-- Criação da tabela Cliente
+CREATE TABLE IF NOT EXISTS Cliente (
+    CPF VARCHAR(11) PRIMARY KEY,
+    Nome VARCHAR(100),
+    CategoriaCNH CHAR(1),
+    DataNasc DATE,
+    Endereco VARCHAR(255)
+);
+
+-- Criação da tabela Locacao
+CREATE TABLE IF NOT EXISTS Locacao (
+    IDLocacao INT PRIMARY KEY AUTO_INCREMENT,
+    PlacaVeiculo VARCHAR(8),
+    CPFCliente VARCHAR(11),
+    DataInicio DATE,
+    DataFim DATE,
+    ValorPago DECIMAL(10, 2),
+    FOREIGN KEY (PlacaVeiculo) REFERENCES Veiculo(Placa),
+    FOREIGN KEY (CPFCliente) REFERENCES Cliente(CPF)
+);
+
+-- Criação da tabela Manutencao
+CREATE TABLE IF NOT EXISTS Manutencao (
+    IDManutencao INT PRIMARY KEY AUTO_INCREMENT,
+    PlacaVeiculo VARCHAR(8),
+    DataInicio DATE,
+    DataFim DATE,
+    Custo DECIMAL(10, 2),
+    Descricao TEXT,
+    FOREIGN KEY (PlacaVeiculo) REFERENCES Veiculo(Placa)
+);
+
+-- Inserção de registros nas tabelas...
+
+-- Inserção de registros na tabela Veiculo
+INSERT INTO Veiculo (Placa, Nome, Modelo, Ano, Fabricante, NumPassageiros, CapPortaMalas, ValorDia, ValorSemana, ValorMes)
+VALUES
+('ABC1234', 'Fusca', 'Sedan', 1980, 'Volkswagen', 5, 300, 100.00, 600.00, 2000.00),
+('DEF5678', 'Civic', 'Sedan', 2019, 'Honda', 5, 350, 150.00, 900.00, 2700.00),
+('GHI9012', 'Corolla', 'Sedan', 2020, 'Toyota', 5, 400, 200.00, 1200.00, 3600.00),
+('JKL3456', 'Onix', 'Hatch', 2021, 'Chevrolet', 5, 250, 120.00, 720.00, 2160.00);
+
+-- Inserção de registros na tabela Cliente
+INSERT INTO Cliente (CPF, Nome, CategoriaCNH, DataNasc, Endereco)
+VALUES
+('12345678901', 'João Silva', 'B', '1985-02-15', 'Rua A, 123, Cidade X'),
+('23456789012', 'Maria Souza', 'B', '1990-07-22', 'Rua B, 456, Cidade Y'),
+('34567890123', 'Carlos Pereira', 'B', '1975-11-30', 'Rua C, 789, Cidade Z'),
+('45678901234', 'Ana Costa', 'B', '1988-04-18', 'Rua D, 012, Cidade W');
+
+-- Inserção de registros na tabela Locacao
+INSERT INTO Locacao (PlacaVeiculo, CPFCliente, DataInicio, DataFim, ValorPago)
+VALUES
+('ABC1234', '12345678901', '2023-04-01', '2023-04-03', 300.00),
+('DEF5678', '23456789012', '2023-04-05', '2023-04-12', 1350.00),
+('GHI9012', '34567890123', '2023-04-15', '2023-04-20', 1200.00),
+('JKL3456', '45678901234', '2023-04-25', '2023-04-30', 720.00);
+
+-- Inserção de registros na tabela Manutencao
+INSERT INTO Manutencao (PlacaVeiculo, DataInicio, DataFim, Custo, Descricao)
+VALUES
+('ABC1234', '2023-03-01', '2023-03-03', 500.00, 'Revisão Completa'),
+('DEF5678', '2023-03-05', '2023-03-07', 400.00, 'Troca de Pneus'),
+('GHI9012', '2023-03-10', '2023-03-12', 300.00, 'Manutenção do Sistema de Freios'),
+('JKL3456', '2023-03-15', '2023-03-17', 200.00, 'Alinhamento e Balanceamento');
