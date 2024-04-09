@@ -1,7 +1,7 @@
 -- Tabela Veiculo
 CREATE TABLE Veiculo (
     Placa VARCHAR2(8) PRIMARY KEY,
-    Nome VARCHAR2(100),
+    Nome VARCHAR2(100) NOT NULL,
     Modelo VARCHAR2(100),
     Ano NUMBER,
     Fabricante VARCHAR2(100),
@@ -15,7 +15,7 @@ CREATE TABLE Veiculo (
 -- Tabela Cliente
 CREATE TABLE Cliente (
     CPF VARCHAR2(11) PRIMARY KEY,
-    Nome VARCHAR2(100),
+    Nome VARCHAR2(100) NOT NULL,
     CategoriaCNH CHAR(1),
     DataNasc DATE,
     Cidade VARCHAR2(255)
@@ -44,10 +44,8 @@ CREATE TABLE Manutencao (
     FOREIGN KEY (PlacaVeiculo) REFERENCES Veiculo(Placa)
 );
 
-
 CREATE SEQUENCE seq_locacao START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_manutencao START WITH 1 INCREMENT BY 1;
-
 
 CREATE OR REPLACE TRIGGER trg_locacao_id
 BEFORE INSERT ON Locacao
