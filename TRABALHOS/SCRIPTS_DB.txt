@@ -1,83 +1,86 @@
--- Criação do Banco de Dados
-CREATE DATABASE IF NOT EXISTS LocadoraVeiculos;
-USE LocadoraVeiculos;
-
--- Criação da tabela Veiculo
-CREATE TABLE IF NOT EXISTS Veiculo (
-    Placa VARCHAR(8) PRIMARY KEY,
-    Nome VARCHAR(100),
-    Modelo VARCHAR(100),
-    Ano INT,
-    Fabricante VARCHAR(100),
-    NumPassageiros INT,
-    CapPortaMalas INT,
-    ValorDia DECIMAL(10, 2),
-    ValorSemana DECIMAL(10, 2),
-    ValorMes DECIMAL(10, 2)
+-- Tabela Veiculo
+CREATE TABLE Veiculo (
+    Placa VARCHAR2(8) PRIMARY KEY,
+    Nome VARCHAR2(100),
+    Modelo VARCHAR2(100),
+    Ano NUMBER,
+    Fabricante VARCHAR2(100),
+    NumPassageiros NUMBER,
+    CapPortaMalas NUMBER,
+    ValorDia NUMBER(10, 2),
+    ValorSemana NUMBER(10, 2),
+    ValorMes NUMBER(10, 2)
 );
 
--- Criação da tabela Cliente
-CREATE TABLE IF NOT EXISTS Cliente (
-    CPF VARCHAR(11) PRIMARY KEY,
-    Nome VARCHAR(100),
+-- Tabela Cliente
+CREATE TABLE Cliente (
+    CPF VARCHAR2(11) PRIMARY KEY,
+    Nome VARCHAR2(100),
     CategoriaCNH CHAR(1),
     DataNasc DATE,
-    Endereco VARCHAR(255)
+    Endereco VARCHAR2(255)
 );
 
--- Criação da tabela Locacao
-CREATE TABLE IF NOT EXISTS Locacao (
-    IDLocacao INT PRIMARY KEY AUTO_INCREMENT,
-    PlacaVeiculo VARCHAR(8),
-    CPFCliente VARCHAR(11),
+-- Tabela Locacao
+CREATE TABLE Locacao (
+    IDLocacao NUMBER PRIMARY KEY,
+    PlacaVeiculo VARCHAR2(8) NOT NULL,
+    CPFCliente VARCHAR2(11) NOT NULL,
     DataInicio DATE,
     DataFim DATE,
-    ValorPago DECIMAL(10, 2),
+    ValorPago NUMBER(10, 2),
     FOREIGN KEY (PlacaVeiculo) REFERENCES Veiculo(Placa),
     FOREIGN KEY (CPFCliente) REFERENCES Cliente(CPF)
 );
 
--- Criação da tabela Manutencao
-CREATE TABLE IF NOT EXISTS Manutencao (
-    IDManutencao INT PRIMARY KEY AUTO_INCREMENT,
-    PlacaVeiculo VARCHAR(8),
+-- Tabela Manutencao
+CREATE TABLE Manutencao (
+    IDManutencao NUMBER PRIMARY KEY,
+    PlacaVeiculo VARCHAR2(8) NOT NULL,
     DataInicio DATE,
     DataFim DATE,
-    Custo DECIMAL(10, 2),
-    Descricao TEXT,
+    Custo NUMBER(10, 2),
+    Descricao CLOB,
     FOREIGN KEY (PlacaVeiculo) REFERENCES Veiculo(Placa)
 );
 
--- Inserção de registros nas tabelas...
 
--- Inserção de registros na tabela Veiculo
-INSERT INTO Veiculo (Placa, Nome, Modelo, Ano, Fabricante, NumPassageiros, CapPortaMalas, ValorDia, ValorSemana, ValorMes)
-VALUES
-('ABC1234', 'Fusca', 'Sedan', 1980, 'Volkswagen', 5, 300, 100.00, 600.00, 2000.00),
-('DEF5678', 'Civic', 'Sedan', 2019, 'Honda', 5, 350, 150.00, 900.00, 2700.00),
-('GHI9012', 'Corolla', 'Sedan', 2020, 'Toyota', 5, 400, 200.00, 1200.00, 3600.00),
-('JKL3456', 'Onix', 'Hatch', 2021, 'Chevrolet', 5, 250, 120.00, 720.00, 2160.00);
+CREATE SEQUENCE seq_locacao START WITH 1 INCREMENT BY 1;
+CREATE SEQUENCE seq_manutencao START WITH 1 INCREMENT BY 1;
 
--- Inserção de registros na tabela Cliente
-INSERT INTO Cliente (CPF, Nome, CategoriaCNH, DataNasc, Endereco)
-VALUES
-('12345678901', 'João Silva', 'B', '1985-02-15', 'Rua A, 123, Cidade X'),
-('23456789012', 'Maria Souza', 'B', '1990-07-22', 'Rua B, 456, Cidade Y'),
-('34567890123', 'Carlos Pereira', 'B', '1975-11-30', 'Rua C, 789, Cidade Z'),
-('45678901234', 'Ana Costa', 'B', '1988-04-18', 'Rua D, 012, Cidade W');
 
--- Inserção de registros na tabela Locacao
-INSERT INTO Locacao (PlacaVeiculo, CPFCliente, DataInicio, DataFim, ValorPago)
-VALUES
-('ABC1234', '12345678901', '2023-04-01', '2023-04-03', 300.00),
-('DEF5678', '23456789012', '2023-04-05', '2023-04-12', 1350.00),
-('GHI9012', '34567890123', '2023-04-15', '2023-04-20', 1200.00),
-('JKL3456', '45678901234', '2023-04-25', '2023-04-30', 720.00);
+CREATE OR REPLACE TRIGGER trg_locacao_id
+BEFORE INSERT ON Locacao
+FOR EACH ROW
+BEGIN
+  SELECT seq_locacao.NEXTVAL INTO :new.IDLocacao FROM dual;
+END;
+/
 
--- Inserção de registros na tabela Manutencao
-INSERT INTO Manutencao (PlacaVeiculo, DataInicio, DataFim, Custo, Descricao)
-VALUES
-('ABC1234', '2023-03-01', '2023-03-03', 500.00, 'Revisão Completa'),
-('DEF5678', '2023-03-05', '2023-03-07', 400.00, 'Troca de Pneus'),
-('GHI9012', '2023-03-10', '2023-03-12', 300.00, 'Manutenção do Sistema de Freios'),
-('JKL3456', '2023-03-15', '2023-03-17', 200.00, 'Alinhamento e Balanceamento');
+CREATE OR REPLACE TRIGGER trg_manutencao_id
+BEFORE INSERT ON Manutencao
+FOR EACH ROW
+BEGIN
+  SELECT seq_manutencao.NEXTVAL INTO :new.IDManutencao FROM dual;
+END;
+/
+
+
+-- Inserção na tabela Veiculo
+INSERT INTO Veiculo (Placa, Nome, Modelo, Ano, Fabricante, NumPassageiros, CapPortaMalas, ValorDia, ValorSemana, ValorMes) VALUES ('ABC1234', 'Fusca', 'Sedan', 1980, 'Volkswagen', 5, 300, 100.00, 600.00, 2000.00);
+-- Repita para os outros registros...
+
+-- Inserção na tabela Cliente
+INSERT INTO Cliente (CPF, Nome, CategoriaCNH, DataNasc, Endereco) VALUES ('12345678901', 'João Silva', 'B', TO_DATE('1985-02-15', 'YYYY-MM-DD'), 'Rua A, 123, Cidade X');
+-- Repita para os outros registros...
+
+-- Inserção na tabela Locacao (IDLocacao será preenchido automaticamente pela trigger)
+INSERT INTO Locacao (PlacaVeiculo, CPFCliente, DataInicio, DataFim, ValorPago) VALUES ('ABC1234', '12345678901', TO_DATE('2023-04-01', 'YYYY-MM-DD'), TO_DATE('2023-04-03', 'YYYY-MM-DD'), 300.00);
+-- Repita para os outros registros...
+
+-- Inserção na tabela Manutencao (IDManutencao será preenchido automaticamente pela trigger)
+INSERT INTO Manutencao (PlacaVeiculo, DataInicio, DataFim, Custo, Descricao) VALUES ('ABC1234', TO_DATE('2023-03-01', 'YYYY-MM-DD'), TO_DATE('2023-03-03', 'YYYY-MM-DD'), 500.00, 'Revisão Completa');
+-- Repita para os outros registros...
+
+
+
