@@ -164,10 +164,6 @@ Conecte Veículo a Manutenção para representar que um veículo pode passar por
 
 
 
-
-
-
-
 A cardinalidade no Diagrama Entidade-Relacionamento (DER) para o projeto da empresa de locação de veículos pode ser determinada da seguinte forma, com base nas relações entre as entidades:
 
 Cliente e Locação: Um cliente pode realizar várias locações, mas cada locação é feita por um único cliente. Portanto, a cardinalidade entre Cliente e Locação é 1:N (um para muitos), onde um Cliente pode ter N Locações, mas cada Locação está associada a um único Cliente.

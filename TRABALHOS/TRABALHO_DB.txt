@@ -1,0 +1,86 @@
+Relacionamento "Aluga" (Veículo - Locação)
+Cardinalidade: (1:N)
+Descrição: Um veículo pode estar envolvido em várias locações ao longo do tempo, mas cada locação específica refere-se a apenas um veículo. Isso significa que, para cada veículo, pode haver N locações (1:N), mas cada locação é para um único veículo (N:1 do ponto de vista da locação).
+Relacionamento "FeitaPor" (Cliente - Locação)
+Cardinalidade: (1:N)
+Descrição: Um cliente pode realizar várias locações, indicando que um único cliente pode alugar vários veículos em momentos diferentes. Portanto, para um cliente, há N locações (1:N), mas cada locação é feita por um único cliente (N:1 do ponto de vista da locação).
+Relacionamento "ManutencaoDe" (Veículo - Manutenção)
+Cardinalidade: (1:N)
+
+Descrição: Um veículo pode passar por várias manutenções ao longo de sua vida útil. Assim, para cada veículo, pode haver N manutenções (1:N), mas cada atividade de manutenção é realizada em um único veículo (N:1 do ponto de vista da manutenção).
+
+Visualização dos Relacionamentos:
+Veículo ↔ (1:N) ↔ Locação
+
+Cada veículo pode estar associado a várias locações (1:N), mas cada locação é para um único veículo (N:1).
+Cliente ↔ (1:N) ↔ Locação
+
+Cada cliente pode estar associado a várias locações (1:N), mas cada locação é feita por um único cliente (N:1).
+Veículo ↔ (1:N) ↔ Manutenção
+
+Cada veículo pode estar associado a várias manutenções (1:N), mas cada manutenção é para um único veículo (N:1).
+Cada uma dessas relações (1:N) reflete a maneira como os dados estão interconectados no banco de dados para registrar e rastrear as locações de veículos, os clientes que realizam essas locações, e as manutenções realizadas nos veículos. Essas relações são fundamentais para garantir a integridade dos dados e facilitar consultas eficientes ao banco de dados.
+
+
+Para representar graficamente as relações entre as entidades Veículo, Cliente, Locação e Manutenção em um Diagrama Entidade-Relacionamento (DER), segue uma descrição visual básica:
+
+Entidade Veículo
+
+Ligada à Locação por uma relação chamada "Aluga".
+Ligada à Manutenção por uma relação chamada "ManutencaoDe".
+
+Entidade Cliente
+
+Ligada à Locação por uma relação chamada "FeitaPor".
+
+Entidade Locação
+
+Atua como uma entidade associativa entre Veículo e Cliente, conectada por "Aluga" e "FeitaPor".
+
+Entidade Manutenção
+
+Ligada diretamente a Veículo pela relação "ManutencaoDe".
+
+A cardinalidade das relações é indicada pelos números nas extremidades das linhas que conectam as entidades:
+
+(1:N): A extremidade da linha perto de "Veículo" em "Aluga" e "ManutencaoDe" teria um "1", indicando que um veículo se relaciona com muitas locações ou manutenções. A outra extremidade dessas linhas, perto de "Locação" ou "Manutenção", teria um "N", indicando que essas entidades podem estar relacionadas a muitos veículos.
+(1:N): De maneira similar, a extremidade da linha perto de "Cliente" em "FeitaPor" teria um "1", e a extremidade perto de "Locação" teria um "N".
+
+
+
+Relacionamento "Aluga"
+Entre as entidades:
+Veículo: Representa os veículos disponíveis para locação.
+Locação: Representa os detalhes de uma locação específica, incluindo datas e valores.
+Descrição do relacionamento:
+Cada locação está associada a um único veículo, indicando que um veículo específico foi alugado.
+Um veículo pode estar associado a várias locações em momentos diferentes, refletindo o fato de que um veículo pode ser alugado muitas vezes ao longo do tempo.
+Representação no modelo relacional:
+A tabela Locação terá uma chave estrangeira PlacaVeiculo, que aponta para a chave primária Placa da tabela Veículo.
+Isso estabelece uma relação de muitos para um (N:1) entre Locação e Veículo, onde N locações podem se referir a 1 veículo.
+
+
+
+Relacionamento "FeitaPor"
+Entre as entidades:
+Cliente: Representa os clientes que podem alugar veículos.
+Locação: Representa os detalhes de uma locação específica.
+Descrição do relacionamento:
+Cada locação é feita por um único cliente, indicando quem alugou o veículo.
+Um cliente pode estar associado a várias locações, o que significa que um cliente pode alugar veículos várias vezes.
+Representação no modelo relacional:
+A tabela Locação terá uma chave estrangeira CPFCliente, que aponta para a chave primária CPF da tabela Cliente.
+Isso cria uma relação de muitos para um (N:1) entre Locação e Cliente, onde N locações podem ser feitas por 1 cliente.
+
+
+
+Relacionamento "ManutencaoDe"
+Entre as entidades:
+Veículo: Representa os veículos que podem precisar de manutenção.
+Manutenção: Representa os detalhes de uma manutenção específica realizada em um veículo.
+Descrição do relacionamento:
+Cada atividade de manutenção está associada a um único veículo, indicando que um veículo específico passou por manutenção.
+Um veículo pode estar associado a várias atividades de manutenção, refletindo o fato de que um veículo pode passar por manutenções múltiplas vezes.
+Representação no modelo relacional:
+A tabela Manutenção terá uma chave estrangeira PlacaVeiculo, que aponta para a chave primária Placa da tabela Veículo.
+Isso estabelece uma relação de muitos para um (N:1) entre Manutenção e Veículo, onde N manutenções podem se referir a 1 veículo.
